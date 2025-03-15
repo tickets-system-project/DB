@@ -33,8 +33,13 @@ VALUES (1, 2, '2025-03-20 10:00:00', 'Oczekujacy', 'ABC123');
 
 #### SQL:
 ```sql
-INSERT INTO Terminarz (id_petenta, id_stanowiska, data_godzina, status, kod_potwierdzenia)
-VALUES (NULL, 2, '2025-03-20 10:00:00', 'Oczekujacy', 'XYZ456');
+kod_potwierdzenia = generate_confirmation_code()
+        self.cursor.execute("""
+            INSERT INTO Terminarz (id_petenta, id_stanowiska, data_godzina, status, kod_potwierdzenia)
+            VALUES (NULL, %s, %s, 'Oczekujacy', %s)
+        """, (id_stanowiska, data_godzina, kod_potwierdzenia))
+        self.connection.commit()
+        return kod_potwierdzenia
 ```
 
 
