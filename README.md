@@ -48,14 +48,19 @@ VALUES (NULL, 2, '2025-03-20 10:00:00', 'Oczekujacy', 'XYZ456');
 
 #### SQL:
 ```sql
--- Jeżeli użytkownik nie ma konta, tworzymy rekord w tabeli Petenci
-INSERT INTO Petenci (imie, nazwisko, pesel, adres) 
-VALUES ('Jan', 'Kowalski', '12345678901', 'ul. Przykładowa 1, 00-001 Warszawa');
-
--- Tworzenie rekordu w tabeli Terminarz
-UPDATE Terminarz
-SET id_petenta = VAL, status = 'Obslugiwany'
-WHERE kod_potwierdzenia = 'LMN789' AND id_petenta IS NULL;
+        self.cursor.execute("""
+            INSERT INTO Petenci (imie, nazwisko, pesel, adres)
+            VALUES (%s, %s, %s, %s) RETURNING id_petenta
+        """, (imie, nazwisko, pesel, adres))
+        petent_id = self.cursor.fetchone()[0]
+        
+        self.cursor.execute("""
+            UPDATE Terminarz
+            SET id_petenta = %s, status = 'Obslugiwany'
+            WHERE kod_potwierdzenia = %s AND id_petenta IS NULL
+        """, (petent_id, kod_potwierdzenia))
+        
+        self.connection.commit()
 ```
 
 
