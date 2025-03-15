@@ -15,8 +15,18 @@
 
 #### SQL:
 ```sql
-INSERT INTO Terminarz (id_petenta, id_stanowiska, data_godzina, status, kod_potwierdzenia)
-VALUES (1, 2, '2025-03-20 10:00:00', 'Oczekujacy', 'ABC123');
+        id_petenta = self.petentid_from_userid(id_uzytkownika)
+        print(id_petenta)
+        if not id_petenta:
+            raise ValueError("Użytkownik nie jest powiązany z petentem.")
+        
+        kod_potwierdzenia = generate_confirmation_code()
+        self.cursor.execute("""
+            INSERT INTO Terminarz (id_petenta, id_stanowiska, data_godzina, status, kod_potwierdzenia)
+            VALUES (%s, %s, %s, 'Oczekujacy', %s)
+        """, (id_petenta, id_stanowiska, data_godzina, kod_potwierdzenia))
+        self.connection.commit()
+        return kod_potwierdzenia
 ```
 
 ### Scenariusz 2: Przychodzę do urzędu i biorę numerek do stanowiska, bez przedstawiania się
