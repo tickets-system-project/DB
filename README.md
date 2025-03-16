@@ -43,8 +43,6 @@
 - Wypełnia formularz przez stronę internetową
 
 
-```
-
 ### Scenariusz 2: Przychodzę do urzędu i biorę numerek do stanowiska, bez przedstawiania się
 
 #### Opis:
