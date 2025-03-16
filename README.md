@@ -29,6 +29,22 @@
         return kod_potwierdzenia
 ```
 
+# System Kolejkowy - Dokumentacja Obsługi
+
+### Scenariusz 1.1: Wypełniam formularz przez internet
+
+#### Opis:
+- System przypisuje sprawę do odpowiedniego stanowiska w zależności od wybranej usługi.
+- Wypełniane na podstawie formularza jest pole Petent. Po wypełnieniu formularza nie ma dostępu do tych danych z powrotem przez strone, jedynie w urzędzie za okazaniem dowodu.
+- Tworzy rekord w tabeli `Terminarz`, przypisując Termin do Petent.
+- Kod potwierdzenia jest generowany, na ekranie, dostępny także w urzędzie po okazaniu dowodu.
+
+#### Użytkownik:
+- Wypełnia formularz przez stronę internetową
+
+
+```
+
 ### Scenariusz 2: Przychodzę do urzędu i biorę numerek do stanowiska, bez przedstawiania się
 
 #### Opis:
