@@ -35,14 +35,27 @@ CREATE TABLE Stanowiska (
     nazwa VARCHAR(100) NOT NULL
 );
 
+CREATE TABLE Status (
+    id_statusu SERIAL PRIMARY KEY,
+    nazwa VARCHAR(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE KategoriaSprawy (
+    id_kategorii SERIAL PRIMARY KEY,
+    nazwa VARCHAR(50) UNIQUE NOT NULL
+)
+
 CREATE TABLE Terminarz (
-    id_terminu SERIAL PRIMARY KEY,
-    id_petenta INTEGER,
-    id_stanowiska INTEGER,
+    id_terminu SERIAL PRIMARY KEY, --Klucz
+    id_petenta INTEGER,            --Petent - nie musi być przypisany od razu
+    id_kategorii INGEGER NOT NULL, --Sprawa musi mieć kategorie (po niej przypisujemy do stanowiska)
+    id_stanowiska INTEGER,         --Stanowisko
+    id_statusu INTEGER NOT NULL,   --'Oczekujacy', 'Potwierdzony', 'Odrzucony', 'Odwolany', 'Obslugiwany'
     komentarz VARCHAR(100),
-    data_godzina TIMESTAMP NOT NULL,
-    status VARCHAR(50) DEFAULT 'Oczekujacy' CHECK (status IN ('Oczekujacy', 'Potwierdzony','Obslugiwany', 'Odrzucony', 'Odwolany')),
-    kod_potwierdzenia VARCHAR(10) UNIQUE NOT NULL,
+    data_godzina TIMESTAMP NOT NULL,--Nusi być
+    kod_potwierdzenia VARCHAR(10) UNIQUE NOT NULL, -- Musi być
     FOREIGN KEY (id_petenta) REFERENCES Petenci(id_petenta) ON DELETE CASCADE,
-    FOREIGN KEY (id_stanowiska) REFERENCES Stanowiska(id_stanowiska) ON DELETE CASCADE
+    FOREIGN KEY (id_stanowiska) REFERENCES Stanowiska(id_stanowiska) ON DELETE CASCADE,
+    FOREIGN KEY (id_statusu) REFERENCES Status(id_statusu) ON DELETE CASCADE,
+    FOREIGN KEY (id_kategorii) REFERENCES KategoriaSprawy(id_kategorii) ON DELETE CASCADE
 );
