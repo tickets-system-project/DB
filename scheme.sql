@@ -48,7 +48,7 @@ CREATE TABLE KategoriaSprawy (
 CREATE TABLE Terminarz (
     id_terminu SERIAL PRIMARY KEY, --Klucz
     id_petenta INTEGER,            --Petent - nie musi być przypisany od razu
-    id_kategorii INGEGER NOT NULL, --Sprawa musi mieć kategorie (po niej przypisujemy do stanowiska)
+    id_kategorii INTEGER NOT NULL, --Sprawa musi mieć kategorie (po niej przypisujemy do stanowiska)
     id_stanowiska INTEGER,         --Stanowisko
     id_statusu INTEGER NOT NULL,   --'Oczekujacy', 'Potwierdzony', 'Obsluzony', 'Odwolany', 'Obslugiwany'
     komentarz VARCHAR(100),
