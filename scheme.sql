@@ -50,7 +50,7 @@ CREATE TABLE Terminarz (
     id_petenta INTEGER,            --Petent - nie musi być przypisany od razu
     id_kategorii INGEGER NOT NULL, --Sprawa musi mieć kategorie (po niej przypisujemy do stanowiska)
     id_stanowiska INTEGER,         --Stanowisko
-    id_statusu INTEGER NOT NULL,   --'Oczekujacy', 'Potwierdzony', 'Odrzucony', 'Odwolany', 'Obslugiwany'
+    id_statusu INTEGER NOT NULL,   --'Oczekujacy', 'Potwierdzony', 'Obsluzony', 'Odwolany', 'Obslugiwany'
     komentarz VARCHAR(100),
     data_godzina TIMESTAMP NOT NULL,--Nusi być
     kod_potwierdzenia VARCHAR(10) UNIQUE NOT NULL, -- Musi być
