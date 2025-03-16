@@ -33,7 +33,7 @@
 
 #### Opis:
 - System przypisuje sprawę do odpowiedniego stanowiska w zależności od wybranej usługi, bez konieczności logowania się wcześniej.
-- Tworzy rekord w tabeli Terminarz, który zawiera dane petenta oraz wybrany termin.
+- Tworzy rekord w tabeli Terminarz, który zawiera wybrany termin oraz kod_potwierdzenia. (Brak powiązania z id_petenta).
 - Generuje kod potwierdzenia, który użytkownik może wykorzystać jako dowód przybycia.
 
 #### Niezarejestrowany petent:
