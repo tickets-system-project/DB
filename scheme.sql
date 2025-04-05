@@ -59,14 +59,6 @@ CREATE TABLE Sloty (
     FOREIGN KEY (KategoriaID) REFERENCES KategorieSpraw(ID) ON DELETE CASCADE
 );
 
-CREATE TABLE Kolejka (
-    ID SERIAL PRIMARY KEY,
-    OkienkoID INT,
-    RezerwacjaID INT,
-    FOREIGN KEY (OkienkoID) REFERENCES Okienka(ID) ON DELETE CASCADE,
-    FOREIGN KEY (RezerwacjaID) REFERENCES Rezerwacje(ID) ON DELETE CASCADE
-);
-
 CREATE TABLE Rezerwacje (
     ID SERIAL PRIMARY KEY,
     PetentID INT,
