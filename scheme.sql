@@ -3,17 +3,68 @@ CREATE TABLE Okienka (
     NrOkienka VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE Okienka_i_Kategorie (
+    ID SERIAL PRIMARY KEY,
+    OkienkoID INT,
+    KategoriaID INT,
+    Data DATE,
+    UrzednikID INT,
+    FOREIGN KEY (OkienkoID) REFERENCES Okienka(ID) ON DELETE CASCADE,
+    FOREIGN KEY (KategoriaID) REFERENCES KategorieSpraw(ID) ON DELETE CASCADE,
+    FOREIGN KEY (UrzednikID) REFERENCES Uzytkownicy(ID) ON DELETE CASCADE
+);
+
+CREATE TABLE Kolejka (
+    ID SERIAL PRIMARY KEY,
+    OkienkoID INT,
+    RezerwacjaID INT,
+    FOREIGN KEY (OkienkoID) REFERENCES Okienka(ID) ON DELETE CASCADE,
+    FOREIGN KEY (RezerwacjaID) REFERENCES Rezerwacje(ID) ON DELETE CASCADE
+);
+
+CREATE TABLE Dane_logowania (
+    ID SERIAL PRIMARY KEY,
+    UzytkownikID INT,
+    Haslo_hash VARCHAR(255) NOT NULL,
+    FOREIGN KEY (UzytkownikID) REFERENCES Uzytkownicy(ID) ON DELETE CASCADE
+);
+
+CREATE TABLE Uzytkownicy (
+    ID SERIAL PRIMARY KEY,
+    Imie VARCHAR(50) NOT NULL,
+    Nazwisko VARCHAR(50) NOT NULL,
+    Login VARCHAR(50) NOT NULL,
+    Haslo VARCHAR(255) NOT NULL,
+    ID_Roli INT,
+    FOREIGN KEY (ID_Roli) REFERENCES Role(ID)
+);
+
+CREATE TABLE Role (
+    ID SERIAL PRIMARY KEY,
+    Nazwa VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE KategorieSpraw (
     ID SERIAL PRIMARY KEY,
     Nazwa VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE Petenci (
+CREATE TABLE Sloty (
     ID SERIAL PRIMARY KEY,
-    Imie VARCHAR(50) NOT NULL,
-    Nazwisko VARCHAR(50) NOT NULL,
-    Telefon VARCHAR(20),
-    Email VARCHAR(100)
+    KategoriaID INT,
+    Data DATE,
+    Godzina TIME,
+    MaxRezerwacji INT,
+    IloscRezerwacji INT,
+    FOREIGN KEY (KategoriaID) REFERENCES KategorieSpraw(ID) ON DELETE CASCADE
+);
+
+CREATE TABLE Kolejka (
+    ID SERIAL PRIMARY KEY,
+    OkienkoID INT,
+    RezerwacjaID INT,
+    FOREIGN KEY (OkienkoID) REFERENCES Okienka(ID) ON DELETE CASCADE,
+    FOREIGN KEY (RezerwacjaID) REFERENCES Rezerwacje(ID) ON DELETE CASCADE
 );
 
 CREATE TABLE Rezerwacje (
@@ -27,52 +78,10 @@ CREATE TABLE Rezerwacje (
     FOREIGN KEY (KategoriaID) REFERENCES KategorieSpraw(ID) ON DELETE CASCADE
 );
 
-CREATE TABLE Sloty (
-    ID SERIAL PRIMARY KEY,
-    KategoriaID INT,
-    Data DATE,
-    Godzina TIME,
-    MaxRezerwacji INT,
-    IloscRezerwacji INT,
-    FOREIGN KEY (KategoriaID) REFERENCES KategorieSpraw(ID) ON DELETE CASCADE
-);
-
-CREATE TABLE Okienka_i_Kategorie (
-    ID SERIAL PRIMARY KEY,
-    OkienkoID INT,
-    KategoriaID INT,
-    Data DATE,
-    UrzadnikID INT,
-    FOREIGN KEY (OkienkoID) REFERENCES Okienka(ID) ON DELETE CASCADE,
-    FOREIGN KEY (KategoriaID) REFERENCES KategorieSpraw(ID) ON DELETE CASCADE
-);
-
-CREATE TABLE Kolejka (
-    ID SERIAL PRIMARY KEY,
-    OkienkoID INT,
-    RezerwacjaID INT,
-    FOREIGN KEY (OkienkoID) REFERENCES Okienka(ID) ON DELETE CASCADE,
-    FOREIGN KEY (RezerwacjaID) REFERENCES Rezerwacje(ID) ON DELETE CASCADE
-);
-
-CREATE TABLE Role (
-    ID SERIAL PRIMARY KEY,
-    Nazwa VARCHAR(50) NOT NULL
-);
-
-CREATE TABLE Uzytkownicy (
+CREATE TABLE Petenci (
     ID SERIAL PRIMARY KEY,
     Imie VARCHAR(50) NOT NULL,
     Nazwisko VARCHAR(50) NOT NULL,
-    Login VARCHAR(50) NOT NULL,
-    Haslo VARCHAR(255) NOT NULL,
-    ID_Roli INT,
-    FOREIGN KEY (ID_Roli) REFERENCES Role(ID)
-);
-
-CREATE TABLE Dane_logowania (
-    ID SERIAL PRIMARY KEY,
-    UzytkownikID INT,
-    Haslo_hash VARCHAR(255) NOT NULL,
-    FOREIGN KEY (UzytkownikID) REFERENCES Uzytkownicy(ID) ON DELETE CASCADE
+    Telefon VARCHAR(20),
+    Email VARCHAR(100)
 );
