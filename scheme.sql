@@ -34,7 +34,6 @@ CREATE TABLE Uzytkownicy (
     Imie VARCHAR(50) NOT NULL,
     Nazwisko VARCHAR(50) NOT NULL,
     Login VARCHAR(50) NOT NULL,
-    Haslo VARCHAR(255) NOT NULL,
     Email VARCHAR(100),
     ID_Roli INT,
     FOREIGN KEY (ID_Roli) REFERENCES Role(ID)
