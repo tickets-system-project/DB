@@ -1,80 +1,80 @@
-CREATE TABLE Role (
+CREATE TABLE Roles ( 
     ID SERIAL PRIMARY KEY,
-    Nazwa VARCHAR(50) NOT NULL
+    Name VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE KategorieSpraw (
+CREATE TABLE CaseCategories (
     ID SERIAL PRIMARY KEY,
-    Nazwa VARCHAR(100) NOT NULL
+    Name VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE Okienka (
+CREATE TABLE Windows (
     ID SERIAL PRIMARY KEY,
-    NrOkienka VARCHAR(50) NOT NULL
+    WindowNumber VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE Petenci (
+CREATE TABLE Clients (
     ID SERIAL PRIMARY KEY,
-    Imie VARCHAR(50) NOT NULL,
-    Nazwisko VARCHAR(50) NOT NULL,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
     PESEL VARCHAR(11) UNIQUE NOT NULL,
-    Telefon VARCHAR(20),
+    Phone VARCHAR(20),
     Email VARCHAR(100)
 );
 
-CREATE TABLE Uzytkownicy (
+CREATE TABLE Users (
     ID SERIAL PRIMARY KEY,
-    Imie VARCHAR(50) NOT NULL,
-    Nazwisko VARCHAR(50) NOT NULL,
-    Login VARCHAR(50) NOT NULL,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Username VARCHAR(50) NOT NULL,
     Email VARCHAR(100),
-    ID_Roli INT,
-    FOREIGN KEY (ID_Roli) REFERENCES Role(ID)
+    RoleID INT,
+    FOREIGN KEY (RoleID) REFERENCES Roles(ID)
 );
 
-CREATE TABLE Rezerwacje (
+CREATE TABLE Reservations (
     ID SERIAL PRIMARY KEY,
-    PetentID INT,
-    KategoriaID INT,
-    Data DATE,
-    Godzina TIME,
-    KodPotwierdzenia VARCHAR(50),
-    FOREIGN KEY (PetentID) REFERENCES Petenci(ID) ON DELETE CASCADE,
-    FOREIGN KEY (KategoriaID) REFERENCES KategorieSpraw(ID) ON DELETE CASCADE
+    ClientID INT,
+    CategoryID INT,
+    Date DATE,
+    Time TIME,
+    ConfirmationCode VARCHAR(50),
+    FOREIGN KEY (ClientID) REFERENCES Clients(ID) ON DELETE CASCADE,
+    FOREIGN KEY (CategoryID) REFERENCES CaseCategories(ID) ON DELETE CASCADE
 );
 
-CREATE TABLE Sloty (
+CREATE TABLE Slots (
     ID SERIAL PRIMARY KEY,
-    KategoriaID INT,
-    Data DATE,
-    Godzina TIME,
-    MaxRezerwacji INT,
-    IloscRezerwacji INT,
-    FOREIGN KEY (KategoriaID) REFERENCES KategorieSpraw(ID) ON DELETE CASCADE
+    CategoryID INT,
+    Date DATE,
+    Time TIME,
+    MaxReservations INT,
+    CurrentReservations INT,
+    FOREIGN KEY (CategoryID) REFERENCES CaseCategories(ID) ON DELETE CASCADE
 );
 
-CREATE TABLE Okienka_i_Kategorie (
+CREATE TABLE Windows_and_Categories (
     ID SERIAL PRIMARY KEY,
-    OkienkoID INT,
-    KategoriaID INT,
-    Data DATE,
-    UrzednikID INT,
-    FOREIGN KEY (OkienkoID) REFERENCES Okienka(ID) ON DELETE CASCADE,
-    FOREIGN KEY (KategoriaID) REFERENCES KategorieSpraw(ID) ON DELETE CASCADE,
-    FOREIGN KEY (UrzednikID) REFERENCES Uzytkownicy(ID) ON DELETE CASCADE
+    WindowID INT,
+    CategoryID INT,
+    Date DATE,
+    ClerkID INT,
+    FOREIGN KEY (WindowID) REFERENCES Windows(ID) ON DELETE CASCADE,
+    FOREIGN KEY (CategoryID) REFERENCES CaseCategories(ID) ON DELETE CASCADE,
+    FOREIGN KEY (ClerkID) REFERENCES Users(ID) ON DELETE CASCADE
 );
 
-CREATE TABLE Kolejka (
+CREATE TABLE Queue (
     ID SERIAL PRIMARY KEY,
-    OkienkoID INT,
-    RezerwacjaID INT,
-    FOREIGN KEY (OkienkoID) REFERENCES Okienka(ID) ON DELETE CASCADE,
-    FOREIGN KEY (RezerwacjaID) REFERENCES Rezerwacje(ID) ON DELETE CASCADE
+    WindowID INT,
+    ReservationID INT,
+    FOREIGN KEY (WindowID) REFERENCES Windows(ID) ON DELETE CASCADE,
+    FOREIGN KEY (ReservationID) REFERENCES Reservations(ID) ON DELETE CASCADE
 );
 
-CREATE TABLE Dane_logowania (
+CREATE TABLE LoginData (
     ID SERIAL PRIMARY KEY,
-    UzytkownikID INT,
-    Haslo_hash VARCHAR(255) NOT NULL,
-    FOREIGN KEY (UzytkownikID) REFERENCES Uzytkownicy(ID) ON DELETE CASCADE
+    UserID INT,
+    PasswordHash VARCHAR(255) NOT NULL,
+    FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
 );
