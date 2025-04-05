@@ -1,61 +1,78 @@
-CREATE TABLE Role (
-    id_roli SERIAL PRIMARY KEY,
-    nazwa VARCHAR(50)
+CREATE TABLE Okienka (
+    ID SERIAL PRIMARY KEY,
+    NrOkienka VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE Uzytkownicy (
-    id_uzytkownika SERIAL PRIMARY KEY,
-    imie VARCHAR(50) NOT NULL,
-    nazwisko VARCHAR(50) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    telefon VARCHAR(20),
-    id_roli INTEGER NOT NULL,
-    FOREIGN KEY (id_roli) REFERENCES Role(id_roli) ON DELETE CASCADE
-);
-
-CREATE TABLE DaneLogowania (
-    id_uzytkownika INTEGER PRIMARY KEY,
-    haslo_hash TEXT NOT NULL,
-    FOREIGN KEY (id_uzytkownika) REFERENCES Uzytkownicy(id_uzytkownika) ON DELETE CASCADE
+CREATE TABLE KategorieSpraw (
+    ID SERIAL PRIMARY KEY,
+    Nazwa VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Petenci (
-    id_petenta SERIAL PRIMARY KEY,
-    id_uzytkownika INTEGER UNIQUE,
-    imie VARCHAR(50),
-    nazwisko VARCHAR(50),
-    pesel CHAR(11) UNIQUE NOT NULL,
-    adres TEXT,
-    FOREIGN KEY (id_uzytkownika) REFERENCES Uzytkownicy(id_uzytkownika) ON DELETE CASCADE,
-    CHECK ((id_uzytkownika IS NOT NULL) OR (imie IS NOT NULL AND nazwisko IS NOT NULL))
+    ID SERIAL PRIMARY KEY,
+    Imie VARCHAR(50) NOT NULL,
+    Nazwisko VARCHAR(50) NOT NULL,
+    Telefon VARCHAR(20),
+    Email VARCHAR(100)
 );
 
-CREATE TABLE Stanowiska (
-    id_stanowiska SERIAL PRIMARY KEY,
-    nazwa VARCHAR(100) NOT NULL
+CREATE TABLE Rezerwacje (
+    ID SERIAL PRIMARY KEY,
+    PetentID INT,
+    KategoriaID INT,
+    Data DATE,
+    Godzina TIME,
+    KodPotwierdzenia VARCHAR(50),
+    FOREIGN KEY (PetentID) REFERENCES Petenci(ID) ON DELETE CASCADE,
+    FOREIGN KEY (KategoriaID) REFERENCES KategorieSpraw(ID) ON DELETE CASCADE
 );
 
-CREATE TABLE Status (
-    id_statusu SERIAL PRIMARY KEY,
-    nazwa VARCHAR(50) UNIQUE NOT NULL
+CREATE TABLE Sloty (
+    ID SERIAL PRIMARY KEY,
+    KategoriaID INT,
+    Data DATE,
+    Godzina TIME,
+    MaxRezerwacji INT,
+    IloscRezerwacji INT,
+    FOREIGN KEY (KategoriaID) REFERENCES KategorieSpraw(ID) ON DELETE CASCADE
 );
 
-CREATE TABLE KategoriaSprawy (
-    id_kategorii SERIAL PRIMARY KEY,
-    nazwa VARCHAR(50) UNIQUE NOT NULL
-)
+CREATE TABLE Okienka_i_Kategorie (
+    ID SERIAL PRIMARY KEY,
+    OkienkoID INT,
+    KategoriaID INT,
+    Data DATE,
+    UrzadnikID INT,
+    FOREIGN KEY (OkienkoID) REFERENCES Okienka(ID) ON DELETE CASCADE,
+    FOREIGN KEY (KategoriaID) REFERENCES KategorieSpraw(ID) ON DELETE CASCADE
+);
 
-CREATE TABLE Terminarz (
-    id_terminu SERIAL PRIMARY KEY, --Klucz
-    id_petenta INTEGER,            --Petent - nie musi być przypisany od razu
-    id_kategorii INTEGER NOT NULL, --Sprawa musi mieć kategorie (po niej przypisujemy do stanowiska)
-    id_stanowiska INTEGER,         --Stanowisko
-    id_statusu INTEGER NOT NULL,   --'Oczekujacy', 'Potwierdzony', 'Obsluzony', 'Odwolany', 'Obslugiwany'
-    komentarz VARCHAR(100),
-    data_godzina TIMESTAMP NOT NULL,--Nusi być
-    kod_potwierdzenia VARCHAR(10) UNIQUE NOT NULL, -- Musi być
-    FOREIGN KEY (id_petenta) REFERENCES Petenci(id_petenta) ON DELETE CASCADE,
-    FOREIGN KEY (id_stanowiska) REFERENCES Stanowiska(id_stanowiska) ON DELETE CASCADE,
-    FOREIGN KEY (id_statusu) REFERENCES Status(id_statusu) ON DELETE CASCADE,
-    FOREIGN KEY (id_kategorii) REFERENCES KategoriaSprawy(id_kategorii) ON DELETE CASCADE
+CREATE TABLE Kolejka (
+    ID SERIAL PRIMARY KEY,
+    OkienkoID INT,
+    RezerwacjaID INT,
+    FOREIGN KEY (OkienkoID) REFERENCES Okienka(ID) ON DELETE CASCADE,
+    FOREIGN KEY (RezerwacjaID) REFERENCES Rezerwacje(ID) ON DELETE CASCADE
+);
+
+CREATE TABLE Role (
+    ID SERIAL PRIMARY KEY,
+    Nazwa VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Uzytkownicy (
+    ID SERIAL PRIMARY KEY,
+    Imie VARCHAR(50) NOT NULL,
+    Nazwisko VARCHAR(50) NOT NULL,
+    Login VARCHAR(50) NOT NULL,
+    Haslo VARCHAR(255) NOT NULL,
+    ID_Roli INT,
+    FOREIGN KEY (ID_Roli) REFERENCES Role(ID)
+);
+
+CREATE TABLE Dane_logowania (
+    ID SERIAL PRIMARY KEY,
+    UzytkownikID INT,
+    Haslo_hash VARCHAR(255) NOT NULL,
+    FOREIGN KEY (UzytkownikID) REFERENCES Uzytkownicy(ID) ON DELETE CASCADE
 );
