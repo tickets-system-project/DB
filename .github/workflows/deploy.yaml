@@ -29,7 +29,7 @@ jobs:
         with:
           images: bartoszmajkowski/ticket-system-db
           tags: |
-            type=raw,value=bids
+            type=raw,value=latest
             type=sha
 
       - name: Build & push Docker image with cache
