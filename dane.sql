@@ -81,11 +81,6 @@ INSERT INTO "LoginData" ("UserID", "PasswordHash") VALUES
 (9, '$2a$12$3H3H3H3H3H3H3H3H3H3H3.K1K1K1K1K1K1K1K1K1K1K1K1K1K1K1K'),
 (10, '$2a$12$2G2G2G2G2G2G2G2G2G2G2.J0J0J0J0J0J0J0J0J0J0J0J0J0J0J0J');
 
-INSERT INTO "Windows" ("WindowNumber") VALUES 
-('Stanowisko 1'),
-('Stanowisko 2'),
-('Stanowisko 3'),
-('Stanowisko 4');
 
 INSERT INTO "Windows_and_Categories" ("WindowID", "CategoryID", "Date", "ClerkID") VALUES
 (1, 1, '2025-04-15', 2),
