@@ -15,7 +15,7 @@ CREATE TABLE "Windows" (
 
 CREATE TABLE "Status" (
     "ID" SERIAL PRIMARY KEY,
-    "ReservationStatus" VARCHAR(50) NOT NULL
+    "Name" VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE "Clients" (
