@@ -5,6 +5,7 @@ CREATE TABLE "Roles" (
 
 CREATE TABLE "CaseCategories" (
     "ID" SERIAL PRIMARY KEY,
+    "Letter" VARCHAR(100) NOT NULL,
     "Name" VARCHAR(100) NOT NULL
 );
 
