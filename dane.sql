@@ -1,7 +1,6 @@
 INSERT INTO "Roles" ("Name") VALUES 
 ('Administrator'),
-('Clerk'),
-('Client');
+('Clerk');
 
 INSERT INTO "Users" ("FirstName", "LastName", "Username", "Email", "RoleID") VALUES 
 ('Jan', 'Kowalski', 'jkowalski', 'j.kowalski@office.com', 1),
