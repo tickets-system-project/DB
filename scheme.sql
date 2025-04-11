@@ -13,6 +13,11 @@ CREATE TABLE "Windows" (
     "WindowNumber" VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE "Status" (
+    "ID" SERIAL PRIMARY KEY,
+    "ReservationStatus" VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE "Clients" (
     "ID" SERIAL PRIMARY KEY,
     "FirstName" VARCHAR(50) NOT NULL,
@@ -36,9 +41,11 @@ CREATE TABLE "Reservations" (
     "ID" SERIAL PRIMARY KEY,
     "ClientID" INT,
     "CategoryID" INT,
+    "StatusID" INT,
     "Date" DATE,
     "Time" TIME,
     "ConfirmationCode" VARCHAR(50),
+    FOREIGN KEY ("StatusID") REFERENCES "Status"("ID") ON DELETE CASCADE,
     FOREIGN KEY ("ClientID") REFERENCES "Clients"("ID") ON DELETE CASCADE,
     FOREIGN KEY ("CategoryID") REFERENCES "CaseCategories"("ID") ON DELETE CASCADE
 );
