@@ -70,7 +70,7 @@ INSERT INTO "Users" ("FirstName", "LastName", "Username", "Email", "RoleID") VAL
 ('Jadwiga', 'Szymańska', 'jszymanska', 'jadwiga.szymanska@urzad.pl', 2);
 
 INSERT INTO "LoginData" ("UserID", "PasswordHash") VALUES
-(1, '$2a$12$rT8Y0QYzxZ/qGX9X8JZ7XeW0XGXz8ztYO9j5H5kVjLn0X8CvD2Kn2'),
+(1, '$2a$11$lSjKafK8vGN2uW28a27gieSQnFr8mtVuuP1Pm6RODJv7qldqpQK1G'),
 (2, '$2a$12$dTe5LIzGvZ9K9X5TyQ3jTeZ4JMpK8n0L/vX3Hv7lZnJ7XGyG/9Lt6'),
 (3, '$2a$12$9V0sFZ1yG2Uy5nL3X5z8IeZX5K8kR4G5G6sJZ3L7hJ7h5n0L9K5Xq'),
 (4, '$2a$12$8K0bX5R7G3G3pP5J5K5J7.bV3V3X3X3X3X3X3X3X3X3X3X3X3X3X3'),
