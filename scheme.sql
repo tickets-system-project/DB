@@ -76,6 +76,7 @@ CREATE TABLE "Queue" (
     "ID" SERIAL PRIMARY KEY,
     "WindowID" INT,
     "ReservationID" INT,
+    "QueueCode" VARCHAR(50),
     FOREIGN KEY ("WindowID") REFERENCES "Windows"("ID") ON DELETE CASCADE,
     FOREIGN KEY ("ReservationID") REFERENCES "Reservations"("ID") ON DELETE CASCADE
 );
