@@ -37,7 +37,7 @@ INSERT INTO "Status" ("Name") VALUES
 ('Oczekujący'),
 ('Odwołany'),
 ('Wezwany'),
-('Obsługiwany')
+('Obsługiwany'),
 ('Obsłużony');
 
 INSERT INTO "Clients" ("FirstName", "LastName", "PESEL", "Phone", "Email") VALUES
