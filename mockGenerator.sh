@@ -202,3 +202,6 @@ for QUEUE_ENTRY in "${QUEUE_DATA[@]}"; do
   echo -n "$QUEUE_ENTRY" >> $OUTPUT_FILE
 done
 echo ";" >> $OUTPUT_FILE
+
+echo "-- Koniec generowania danych" >> $OUTPUT_FILE
+echo "Wygenerowano mockowe dane do pliku $OUTPUT_FILE"
