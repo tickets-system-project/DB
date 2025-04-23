@@ -1,3 +1,5 @@
+-- NIEAKUTALNE!
+
 INSERT INTO "Roles" ("Name") VALUES
 ('Administrator'),
 ('Urzędnik');
